@@ -10,7 +10,7 @@ global timers
 timers = []
 global timer_index
 timer_index = 0
-token = "ADD TOKEN HERE"
+token = ""
 
 
 class MyClient(discord.Client):
@@ -21,7 +21,6 @@ class MyClient(discord.Client):
     async def timer(self, message, args, cmd, seconds, type):
         try:
             args[0] = args[0]
-            print("passed")
             pass
         except IndexError:
             await message.channel.send(f"You need to specify a still or ask for help using {cmd} -h")
@@ -58,7 +57,7 @@ class MyClient(discord.Client):
             args.pop(0)
         except IndexError:
             return
-        print(cmd, args)
+
         if cmd == prefix + "startmash":
             await self.timer(message, args, cmd, 5700, "Mash")
             return
@@ -74,14 +73,19 @@ class MyClient(discord.Client):
         elif cmd == prefix + "checktimers":
             embed = discord.Embed(
                 title="Timers", description="", colour=000000)
-            for timer in timers:
-                # structure of timer: [still, time, userid, type]
-                still = timer[0]
-                time_left = int(timer[1] - time())
-                user = timer[2]
-                type = timer[3]
+            if timers != []:
+                for timer in timers:
+                    # structure of timer: [still, time, userid, type]
+                    still = timer[0]
+                    time_left = int(timer[1] - time())
+                    user = timer[2]
+                    type = timer[3]
+                    embed.add_field(
+                        name=f"Still: {still} - {type} - Started by {user}", value=f"Time Left: {time_left}", inline=False)
+
+            else:
                 embed.add_field(
-                    name=f"Still: {still} - {type} - Started by {user}", value=time_left, inline=False)
+                    name="No timers", value="There are no timers currently active", inline=False)
 
             await message.channel.send(embed=embed)
             return
