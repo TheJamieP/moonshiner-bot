@@ -10,6 +10,7 @@ global timers
 timers = []
 global timer_index
 timer_index = 0
+token = "ADD TOKEN HERE"
 
 
 class MyClient(discord.Client):
@@ -89,5 +90,4 @@ class MyClient(discord.Client):
 client = MyClient()
 
 
-client.run(
-    "MTAwNTUxMjY2ODIzMDIwOTUzNg.G86BTZ.-RSltwPID1DeSt4I0-CymmhK2k-yJNXkcaQTu8")
+client.run(token)
