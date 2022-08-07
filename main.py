@@ -17,6 +17,7 @@ class MyClient(discord.Client):
 
     async def on_ready(self):
         print('Logged on as', self.user)
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{prefix}help"))
 
     async def timer(self, message, args, cmd, seconds, type):
         try:
