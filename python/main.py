@@ -11,7 +11,7 @@ global timers
 timers = []
 global timer_index
 timer_index = 0
-token = "INSERT_TOKEN_HERE"
+token = ""
 
 
 class MyClient(discord.Client):
@@ -340,7 +340,7 @@ class MyClient(discord.Client):
 
         elif cmd == prefix + "help":
             embed = discord.Embed(
-                title="Help", description="", colour=000000)
+                title="Help", description="For help with any of the commands use <cmd> -h", colour=000000)
             embed.add_field(
                 name="startmash", value="Starts a mash timer", inline=False)
             embed.add_field(
@@ -351,6 +351,8 @@ class MyClient(discord.Client):
                 name="checktimers", value="Checks the timers", inline=False)
             embed.add_field(
                 name="Getrecipe", value="Gets the recipe for a given flavour", inline=False)
+            embed.add_field(
+                name="Getcost", value="Gets the cost of a recipe", inline=False)
             embed.add_field(
                 name="help", value="Shows this message", inline=False)
             await message.channel.send(embed=embed)
