@@ -3,10 +3,11 @@ from time import time
 import discord
 from discord.utils import get
 from discord.ext import commands
+import json
 
 
 global prefix
-prefix = "%"
+prefix = "."
 global timers
 timers = []
 global timer_index
@@ -54,7 +55,6 @@ class MyClient(discord.Client):
     async def on_message(self, message):
         if message.author.bot:
             return
-
         args = message.content.split()
         try:
             cmd = args[0]
@@ -90,7 +90,6 @@ class MyClient(discord.Client):
                 "raspberry90p": [1, 2, 10, 1],
             }
         }
-
         if cmd == prefix + "startmash":
             await self.timer(message, args, cmd, 5700, "Mash")
             return
