@@ -1,1 +1,1 @@
-nohup python3 ~/hosting/moonshiner-bot/python/main.py  &
+nohup python3 ~/hosting/moonshiner-bot/src/main.py  &
