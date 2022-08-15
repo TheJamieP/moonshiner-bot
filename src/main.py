@@ -13,7 +13,7 @@ timers = []
 global timer_index
 timer_index = 0
 
-token = ""
+token = "ODA0MzQyOTg3Nzc2ODUxOTc5.GeCqFh.sXvFbaImVMqzzvxXkccBfsgbGeYQddJY3-2Tp8"
 
 
 class MyClient(discord.Client):

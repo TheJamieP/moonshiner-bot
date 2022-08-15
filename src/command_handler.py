@@ -1,4 +1,4 @@
-from commands import checktimers, timer, getrecipe, getcost, help
+from commands import checktimers, timer, getrecipe, getcost, seedcost, help
 
 
 async def command_handler(args, cmd, message, prefix, discord, timers, timer_index):
@@ -31,7 +31,7 @@ async def command_handler(args, cmd, message, prefix, discord, timers, timer_ind
             "raspberry90p": [1, 2, 10, 1],
         }
     }
-
+    # bootleggar shit
     if cmd == prefix + "startmash":
         await timer.tr(message, args, cmd, 5700, "Mash", timers, timer_index)
         return
@@ -52,5 +52,10 @@ async def command_handler(args, cmd, message, prefix, discord, timers, timer_ind
     elif cmd == prefix + "getcost":
         await getcost.gc(args, message, cmd, discord.Embed, recipies)
 
+    # farming shit
+    elif cmd == prefix + "seedcost":
+        await seedcost.sc(message, args, cmd, discord.Embed)
+
+    # general shit
     elif cmd == prefix + "help":
         await help.hp(message, discord.Embed)
