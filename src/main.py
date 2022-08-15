@@ -13,7 +13,9 @@ timers = []
 global timer_index
 timer_index = 0
 
-token = "ODA0MzQyOTg3Nzc2ODUxOTc5.GeCqFh.sXvFbaImVMqzzvxXkccBfsgbGeYQddJY3-2Tp8"
+#stop pushing the token to the repo
+with open("./data/token.json") as f:
+    token = json.load(f)["token"]
 
 
 class MyClient(discord.Client):
