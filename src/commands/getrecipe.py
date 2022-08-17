@@ -1,5 +1,6 @@
+from data.config import bootleggar_recipe_quantities as recipies, __EMBED_COLOUR__
 
-async def gr(args, message, cmd, recipies, Embed):
+async def gr(args, message, cmd, Embed):
     # cmd breakdown: getrecipe <type> <flavour>
     # type: mash, alcohol, shine
     # flavours: blackberry, raspberry, apple, creekplum, alaskan ginseng, american ginseng, peach, moonshine, blackberry 90p, raspberry 90p
@@ -22,7 +23,7 @@ async def gr(args, message, cmd, recipies, Embed):
         if args[1] == "-h":
             # list the available flavours
             embed = Embed(
-                title=f"Available flavours for Mash", description="", colour=000000)
+                title=f"Available flavours for Mash", description="", colour=__EMBED_COLOUR__)
             string = ""
             integer = 0
             for name, values in recipies["mash"].items():
@@ -36,7 +37,7 @@ async def gr(args, message, cmd, recipies, Embed):
             if name == args[1]:
                 # loop through the values and add them to the embed message if they are not 0
                 embed = Embed(
-                    title=f"Recipe for {name} mash", description="", colour=000000)
+                    title=f"Recipe for {name} mash", description="", colour=__EMBED_COLOUR__)
                 ingredients = ["Water", "Alcohol", "Blackberry", "Raspberry", "Apple", "Creekplum",
                                "Alaskan Ginseng", "American Ginseng", "Peach", "Hop", "Glass Bottle"]
                 for i in range(len(values)):
@@ -50,7 +51,7 @@ async def gr(args, message, cmd, recipies, Embed):
     elif args[0] == "alcohol":
         recipe = recipies["alcohol"]
         embed = Embed(
-            title=f"Recipe for alcohol", description="", colour=000000)
+            title=f"Recipe for alcohol", description="", colour=__EMBED_COLOUR__)
 
         ingredients = ["Water", "Alcohol", "Blackberry", "Raspberry", "Apple", "Creekplum",
                        "Alaskan Ginseng", "American Ginseng", "Peach", "Hop", "Glass Bottle"]
@@ -67,7 +68,7 @@ async def gr(args, message, cmd, recipies, Embed):
         if args[1] == "-h":
             # list the available flavours
             embed = Embed(
-                title=f"Available flavours for shine", description="", colour=000000)
+                title=f"Available flavours for shine", description="", colour=__EMBED_COLOUR__)
             string = ""
             integer = 0
             for name, values in recipies["shine"].items():
@@ -82,7 +83,7 @@ async def gr(args, message, cmd, recipies, Embed):
             if name == args[1]:
                 # loop through the values and add them to the embed message if they are not 0
                 embed = Embed(
-                    title=f"Recipe for {name} Shine", description="", colour=000000)
+                    title=f"Recipe for {name} Shine", description="", colour=__EMBED_COLOUR__)
                 ingredients = [
                     "Water", "Mash (quantity)", "Glass Bottle", "Sugar"]
                 for i in range(len(values)):

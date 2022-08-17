@@ -1,10 +1,10 @@
-
+from data.config import __EMBED_COLOUR__
 from time import time
 
 
 async def ct(cmd, message, args, timers, Embed):
     embed = Embed(
-        title="Timers", description="", colour=000000)
+        title="Timers", description="", colour=__EMBED_COLOUR__)
     if timers != []:
         for timer in timers:
             # structure of timer: [still, time, userid, type]

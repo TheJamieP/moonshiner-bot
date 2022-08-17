@@ -1,6 +1,7 @@
+from data.config import __EMBED_COLOUR__
 async def hp(message, Embed):
     embed = Embed(
-        title="Help", description="For help with any of the commands use <cmd> -h", colour=000000)
+        title="Help", description="For help with any of the commands use <cmd> -h", colour=__EMBED_COLOUR__)
     embed.add_field(
         name="========~{Category}~========", value="======== Bootleggar ========", inline=False)
     embed.add_field(

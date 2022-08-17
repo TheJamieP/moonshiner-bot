@@ -10,8 +10,15 @@ timer_index = 0
 
 # stop pushing the token to the repo
 # load the data from the file
-token = open("./src/data/token.txt", "r").read()
-
+try:
+    token = open("./src/data/token.txt", "r").read()
+except FileNotFoundError:
+    print("Token file not found")
+    # create the file
+    open("./src/data/token.txt", "w").close()
+    # write the token to the file
+    token = open("./src/data/token.txt", "w").write(input("Enter your token: "))
+    token = open("./src/data/token.txt", "r").read()
 
 class MyClient(discord.Client):
 
