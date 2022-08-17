@@ -1,4 +1,6 @@
 from data.config import __EMBED_COLOUR__
+
+
 async def hp(message, Embed):
     embed = Embed(
         title="Help", description="For help with any of the commands use <cmd> -h", colour=__EMBED_COLOUR__)
@@ -20,6 +22,8 @@ async def hp(message, Embed):
         name="========~{Category}~========", value="======== Farming ========", inline=False)
     embed.add_field(
         name="seedcost", value="Gets the cost of a seed", inline=False)
+    embed.add_field(name="howtogrow",
+                    value="tells you how to grow", inline=False)
     embed.add_field(
         name="========~{Category}~========", value="======== General ========", inline=False)
     embed.add_field(
