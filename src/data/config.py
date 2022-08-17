@@ -10,7 +10,7 @@ oooooo     oooo                     o8o             .o8       oooo
 """
 __EMBED_COLOUR__ = 0xFFFFFF
 __prefix__ = "."
-__BOT_MODE__ = "main"
+__BOT_MODE__ = "dev"
 
 """
 oooooooooo.    o8o                .
@@ -26,23 +26,17 @@ bootleggar_recipe_costs = {
     "mash": [0.2, 0.32, 1, 1, 1, 1, 1, 1, 1, 1, 0.2],
     "alcohol": [0.2, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0],
     "shine": {
-
         "blackberry": [0.2, 0.768, 3, 1],
         "raspberry": [0.2, 0.768, 3, 1],
         "apple": [0.2, 0.768, 3, 1],
-
-
         "creekplum": [0.2, 1.536, 3, 1],
         "alaskangin": [0.2, 1.536, 3, 1],
         "americangin": [0.2, 1.536, 3, 1],
         "peach": [0.2, 1.536, 3, 1],
-
-
         "moonshine": [0.2, 1.52, 2, 1],
         "blackberry90p": [0.2, 2.992, 2, 1],
-        "raspberry90p": [0.2, 2.992, 2, 1]
-
-    }
+        "raspberry90p": [0.2, 2.992, 2, 1],
+    },
 }
 
 bootleggar_recipe_quantities = {
@@ -52,37 +46,30 @@ bootleggar_recipe_quantities = {
     # }
     "mash": {
         # "flavour": [water, alcohol, blackberry, raspberry, apple, creekplum, alaskan ginseng, american ginseng, peach, Hop, glass bottle]
-
         "blackberry": [1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 5],
         "raspberry": [1, 2, 0, 2, 0, 0, 0, 0, 0, 0, 5],
         "apple": [1, 2, 0, 0, 2, 0, 0, 0, 0, 0, 5],
-
         "creekplum": [1, 2, 0, 0, 0, 2, 0, 0, 0, 0, 5],
         "alaskangin": [1, 2, 0, 0, 0, 0, 2, 0, 0, 0, 5],
         "americangin": [1, 2, 0, 0, 0, 0, 0, 2, 0, 0, 5],
         "peach": [1, 2, 0, 0, 0, 0, 0, 0, 2, 0, 5],
-
-
         "moonshine": [1, 5, 0, 0, 0, 0, 0, 0, 0, 1, 5],
         "blackberry90p": [1, 4, 5, 0, 0, 0, 0, 0, 0, 0, 5],
         "raspberry90p": [1, 4, 0, 5, 0, 0, 0, 0, 0, 0, 5],
     },
     "alcohol": [1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0],
     "shine": {
-
         "blackberry": [1, 1, 15, 1],
         "raspberry": [1, 1, 15, 1],
         "apple": [1, 1, 15, 1],
-
         "creekplum": [1, 2, 15, 1],
         "alaskangin": [1, 2, 15, 1],
         "americangin": [1, 2, 15, 1],
         "peach": [1, 2, 15, 1],
-
         "moonshine": [1, 2, 10, 1],
         "blackberry90p": [1, 2, 10, 1],
-        "raspberry90p": [1, 2, 10, 1]
-    }
+        "raspberry90p": [1, 2, 10, 1],
+    },
 }
 
 farmer_seed_cost = {

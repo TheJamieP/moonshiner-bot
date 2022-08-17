@@ -1,6 +1,10 @@
 import discord
 from command_handler import command_handler
 from data.config import __prefix__ as prefix, __BOT_MODE__
+from os import popen
+
+# removes cache files
+popen("find . -type d -name __pycache__ -exec rm -r {} \+")
 timers = []
 timer_index = 0
 
@@ -9,9 +13,9 @@ timer_index = 0
 
 # get token from :~/hosting/savedshit/token.txt
 if __BOT_MODE__ == "dev":
-    token = open("~/bot-dev/savedshit/dev-token.txt", "r").read()
+    token = open("../../savedshit/dev-token.txt", "r").read()
 else:
-    token = open("~/bot-dev/savedshit/main-token.txt", "r").read()
+    token = open("../../savedshit/main-token.txt", "r").read()
 
 
 class MyClient(discord.Client):
