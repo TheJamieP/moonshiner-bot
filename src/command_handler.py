@@ -2,7 +2,7 @@ from commands import checktimers, timer, getrecipe, getcost, seedcost, help
 
 
 async def command_handler(args, cmd, message, prefix, discord, timers, timer_index):
-    
+
     # bootleggar shit
     if cmd == prefix + "startmash":
         await timer.tr(message, args, cmd, 5700, "Mash", timers, timer_index)

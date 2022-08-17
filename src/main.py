@@ -17,14 +17,19 @@ except FileNotFoundError:
     # create the file
     open("./src/data/token.txt", "w").close()
     # write the token to the file
-    token = open("./src/data/token.txt", "w").write(input("Enter your token: "))
+    token = open("./src/data/token.txt",
+                 "w").write(input("Enter your token: "))
     token = open("./src/data/token.txt", "r").read()
 
-class MyClient(discord.Client):
 
+class MyClient(discord.Client):
     async def on_ready(self):
-        print('Logged on as', self.user)
-        await self.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{prefix}help"))
+        print("Logged on as", self.user)
+        await self.change_presence(
+            activity=discord.Activity(
+                type=discord.ActivityType.watching, name=f"{prefix}help"
+            )
+        )
 
     async def on_message(self, message):
         if message.author.bot:
