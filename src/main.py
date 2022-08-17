@@ -9,9 +9,9 @@ timer_index = 0
 
 # get token from :~/hosting/savedshit/token.txt
 if __BOT_MODE__ == "dev":
-    token = open("dev-token.txt", "r").read()
+    token = open("~/bot-dev/savedshit/dev-token.txt", "r").read()
 else:
-    token = open("main-token.txt", "r").read()
+    token = open("~/bot-dev/savedshit/main-token.txt", "r").read()
 
 
 class MyClient(discord.Client):
