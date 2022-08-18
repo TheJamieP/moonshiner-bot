@@ -1,7 +1,7 @@
 from commands import checktimers, timer, getrecipe, getcost, seedcost, help, howtogrow, orders
 
 
-async def command_handler(args, cmd, message, prefix, discord, timers, timer_index):
+async def command_handler(args, cmd, message, prefix, discord, timers, timer_index, client):
 
     # bootleggar shit
     if cmd == prefix + "startmash":
@@ -36,4 +36,4 @@ async def command_handler(args, cmd, message, prefix, discord, timers, timer_ind
         await howtogrow.h2g(message, args, cmd)
 
     elif cmd == prefix + "orders":
-        await orders.order(message, args, cmd, discord.Embed)
+        await orders.order(message, args, cmd, discord.Embed, client)
