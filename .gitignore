@@ -3,3 +3,4 @@ __pycache__
 .gitignore
 token.txt
 .vscode
+nohup.out
