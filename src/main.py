@@ -1,8 +1,7 @@
 import discord
 from command_handler import command_handler
 from data.config import __prefix__ as prefix, __BOT_MODE__
-
-
+from data.sensitive import get_token
 timers = []
 timer_index = 0
 
@@ -10,10 +9,6 @@ timer_index = 0
 # load the data from the file
 
 # get token from :~/hosting/savedshit/token.txt
-if __BOT_MODE__ == "dev":
-    token = open("savedshit/dev-token.txt", "r").read()
-else:
-    token = open("savedshit/main-token.txt", "r").read()
 
 
 class MyClient(discord.Client):
@@ -39,4 +34,4 @@ class MyClient(discord.Client):
 
 
 client = MyClient()
-client.run(token)
+client.run(get_token())

@@ -1,17 +1,21 @@
 import pymongo
 from data.config import __EMBED_COLOUR__, __prefix__
+from data.sensitive import get_connection_string
 
 
 database = pymongo.MongoClient(
-    open("savedshit/connectstring.txt", "r").read()).get_database("moonshiner")
+    get_connection_string()).get_database("moonshiner")
+
+
+async def fetchData():
+    column = database.orders
+    data = column.find({})
+    data = [x for x in data]
+    return column, data
 
 
 async def add_order(message, flavour, quantity, customer):
-    # add an order to the database
-    column = database.orders
-    data = column.find({})
-    # make data readable
-    data = [x for x in data]
+    column, data = await fetchData()
     if data == []:
         id = 1
     else:
@@ -39,10 +43,7 @@ async def remove_order(message, id):
 
 
 async def get_orders(message, Embed):
-    column = database.orders
-    data = column.find({})
-    # make data readable
-    data = [x for x in data]
+    column, data = await fetchData()
     if data == []:
         await message.channel.send(
             embed=Embed(

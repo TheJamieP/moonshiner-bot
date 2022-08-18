@@ -4,3 +4,4 @@ __pycache__
 token.txt
 .vscode
 nohup.out
+sensitive.py
