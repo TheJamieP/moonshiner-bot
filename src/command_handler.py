@@ -1,4 +1,4 @@
-from commands import checktimers, timer, getrecipe, getcost, seedcost, help, howtogrow
+from commands import checktimers, timer, getrecipe, getcost, seedcost, help, howtogrow, orders
 
 
 async def command_handler(args, cmd, message, prefix, discord, timers, timer_index):
@@ -34,3 +34,6 @@ async def command_handler(args, cmd, message, prefix, discord, timers, timer_ind
 
     elif cmd == prefix + "howtogrow" or cmd == prefix + "h2g":
         await howtogrow.h2g(message, args, cmd)
+
+    elif cmd == prefix + "orders":
+        await orders.order(message, args, cmd, discord.Embed)
