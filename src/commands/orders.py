@@ -1,5 +1,5 @@
 import pymongo
-from data.config import __EMBED_COLOUR__, __prefix__
+from data.config import __EMBED_COLOUR__, __prefix__, __orders_channel__
 from data.sensitive import get_connection_string
 from asyncio import TimeoutError, sleep
 
@@ -13,6 +13,14 @@ async def order(message, args, cmd, Embed, client):
     # order <add> <business> <item> <quantity> <customer>
     # order <remove> <business> <id>
     # order <get> <business>
+    if message.channel.id != __orders_channel__:
+        return await message.channel.send(
+            embed=Embed(
+                title="Error",
+                description="This command can only be used in the orders channel.",
+                colour=__EMBED_COLOUR__
+            )
+        )
     try:
         param = args[0]
 
