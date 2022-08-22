@@ -1,86 +1,26 @@
 import pymongo
-from data.config import __EMBED_COLOUR__, __prefix__
+from data.config import __EMBED_COLOUR__, __prefix__, __orders_channel__
 from data.sensitive import get_connection_string
+from asyncio import TimeoutError, sleep
 
 
 database = pymongo.MongoClient(
-    get_connection_string()).get_database("moonshiner")
+    get_connection_string()).get_database("orders")
 
 
-async def fetchData():
-    column = database.orders
-    data = column.find({})
-    data = [x for x in data]
-    return column, data
-
-
-async def add_order(message, flavour, quantity, customer):
-    column, data = await fetchData()
-    if data == []:
-        id = 1
-    else:
-        id = data[len(data) - 1]["id"] + 1
-    column.insert_one(
-        {
-            "user": message.author.name,
-            "flavour": flavour,
-            "quantity": quantity,
-            "customer": customer,
-            "id": id
-        }
-    )
-    pass
-
-
-async def remove_order(message, id):
-    column = database.orders
-    column.delete_one(
-        {
-            "id": id
-        }
-    )
-    pass
-
-
-async def get_orders(message, Embed):
-    column, data = await fetchData()
-    if data == []:
-        await message.channel.send(
+async def order(message, args, cmd, Embed, client):
+    # cmd breakdown:
+    # order <add> <business> <item> <quantity> <customer>
+    # order <remove> <business> <id>
+    # order <get> <business>
+    if message.channel.id != __orders_channel__:
+        return await message.channel.send(
             embed=Embed(
-                title="Orders",
-                description="There are no orders.",
-                color=__EMBED_COLOUR__,
+                title="Error",
+                description="This command can only be used in the orders channel.",
+                colour=__EMBED_COLOUR__
             )
         )
-        return
-    embed = Embed(
-        title=f"Orders", description=f"", color=__EMBED_COLOUR__)
-    for d in data:
-        for name, value in d.items():
-            if name == "user":
-                user = value
-            elif name == "flavour":
-                flavour = value
-            elif name == "quantity":
-                quantity = value
-            elif name == "customer":
-                customer = value
-            elif name == "id":
-                id = value
-
-        embed.add_field(
-            name=f"Order for:  {customer}", value=f"Flavour:  {flavour},\n Quantity(Bottles):  {quantity},\n  Message Creator:  {user},\n Order ID:  {id}", inline=True)
-
-        pass
-
-    await message.channel.send(embed=embed)
-
-
-async def order(message, args, cmd, Embed):
-    # cmd breakdown:
-    # order <add> <flavour> <quantity> <customer>
-    # order <remove> <id>
-    # order <get>
     try:
         param = args[0]
 
@@ -93,51 +33,7 @@ async def order(message, args, cmd, Embed):
             )
         )
         return
-
-    if param == "add":
-        if args[1] == "-h":
-            await message.channel.send(
-                embed=Embed(
-                    title="Help",
-                    description=f"{__prefix__}order add <flavour> <quantity> <customer>",
-                    color=__EMBED_COLOUR__,
-                )
-            )
-            return
-        flavour = args[1]
-        quantity = int(args[2])
-        customer = args[3]
-        await add_order(message, flavour, quantity, customer)
-
-    elif param == "remove":
-        if args[1] == "-h":
-            await message.channel.send(
-                embed=Embed(
-                    title="Help",
-                    description=f"{__prefix__}order remove <id>",
-                    color=__EMBED_COLOUR__,
-                )
-            )
-            return
-        id = int(args[1])
-        await remove_order(message, id)
-
-    elif param == "get":
-        try:
-            if args[1] == "-h":
-                await message.channel.send(
-                    embed=Embed(
-                        title="Help",
-                        description=f"{__prefix__}order get - Gets all orders.",
-                        color=__EMBED_COLOUR__,
-                    )
-                )
-            return
-        except IndexError:
-            print("no args")
-            await get_orders(message, Embed)
-            return
-    else:
+    if param != "add" and param != "remove" and param != "get":
         await message.channel.send(
             embed=Embed(
                 title="Error - Invalid Parameter",
@@ -145,3 +41,125 @@ async def order(message, args, cmd, Embed):
                 color=__EMBED_COLOUR__,
             )
         )
+        return
+    try:
+        role = args[1]
+    except IndexError:
+        await message.channel.send(
+            embed=Embed(
+                title="Error - No Role",
+                description="Please enter a valid role. (mining, chef, farmer, fisher, hunter, lumberjack, bootleggar, blacksmith, gunsmith, horsetrainer, ranching, pharmacist)",
+                color=__EMBED_COLOUR__,
+            )
+        )
+        return
+    possible_roles = ["mining", "chef", "farmer", "fisher", "hunter", "lumberjack",
+                      "bootleggar", "blacksmith", "gunsmith", "horsetrainer", "ranching", "pharmacist"]
+
+    if role not in possible_roles:
+        await message.channel.send(
+            embed=Embed(
+                title="Error - Invalid Role",
+                description="Please enter a valid role. (mining, chef, farmer, fisher, hunter, lumberjack, bootleggar, blacksmith, gunsmith, horsetrainer, ranching, pharmacist)",
+                color=__EMBED_COLOUR__,
+            )
+        )
+        return
+    column = database.get_collection(role)
+    if param == "add":
+        # begin taking items from a new message and adding them to the list of items
+        items = {
+            # "item": "quantity"
+        }
+        loop = True
+        while loop:
+            try:
+                await message.channel.send("Please enter the name of the item you would like to add. (type 'done' when finished): ")
+                await sleep(0.10)
+                item = await client.wait_for("message", timeout=60.0)
+                item_data = item.content
+                if item_data == "done":
+                    loop = False
+                    break
+                await message.channel.send("Please enter the quantity of the item you would like to add:")
+                quantity = await client.wait_for("message", timeout=60.0)
+                items[item_data] = quantity.content
+
+            except TimeoutError:
+                loop = False
+                break
+
+        await message.channel.send("Please enter the name of the customer:")
+        customer = await client.wait_for("message", timeout=60.0)
+
+        customer = customer.content.lower()
+        await message.channel.send("Please enter the type of the order. (incoming/outgoing):")
+        type = await client.wait_for("message", timeout=60.0)
+        await message.channel.purge(limit=75)
+        type = type.content.lower()
+        data = [x for x in column.find({})]
+        if data == []:
+            id = 1
+        else:
+            id = data[len(data) - 1]["Id"] + 1
+        column.insert_one(
+            {
+                "Author": message.author.name,
+                "Items": items,
+                "Customer": customer,
+                "Type": type,
+                "Id": id
+            }
+        )
+
+    elif param == "get":
+        orders = [x for x in column.find({})]
+        if orders == []:
+            await message.channel.send(
+                embed=Embed(
+                    title="Error - No Orders",
+                    description="There are no orders in this category.",
+                    color=__EMBED_COLOUR__,
+                )
+            )
+            return
+        embed = Embed(title="Orders", description="", color=__EMBED_COLOUR__)
+        for order in orders:
+            for fields in order:
+                if fields == "Items":
+                    items = ""
+                    for name, quantity in order[fields].items():
+                        items += f"{name}: {quantity}, "
+
+                elif fields == "Id":
+                    id = order[fields]
+                elif fields == "Author":
+                    author = order[fields]
+                elif fields == "Customer":
+                    customer = order[fields]
+                elif fields == "Type":
+                    type = order[fields]
+
+            embed.add_field(
+                name=f"Order #{id}", value=f"**Items:**  {items}\n**Customer:**  {customer}\n**Type:**  {type}\n**Author:**  {author}", inline=False)
+
+        await message.channel.send(embed=embed)
+
+    elif param == "remove":
+        try:
+            id = args[2]
+        except IndexError:
+            await message.channel.send(
+                embed=Embed(
+                    title="Error - No Id",
+                    description="Please enter a valid id.",
+                    color=__EMBED_COLOUR__,
+                )
+            )
+            return
+
+        # remove the order from the database with the id
+        column.delete_one({"Id": int(id)})
+        await message.channel.send("Order removed. (deleting this msg in 4")
+        await sleep(4)
+        await message.channel.purge(limit=100)

@@ -8,8 +8,6 @@ timer_index = 0
 # stop pushing the token to the repo
 # load the data from the file
 
-# get token from :~/hosting/savedshit/token.txt
-
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -30,7 +28,7 @@ class MyClient(discord.Client):
         except IndexError:
             return
 
-        await command_handler(args, cmd, message, prefix, discord, timers, timer_index)
+        await command_handler(args, cmd, message, prefix, discord, timers, timer_index, self)
 
 
 client = MyClient()
