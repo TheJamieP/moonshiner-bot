@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y git && \
 RUN git clone https://github.com/mayoayoayo/moonshiner-bot.git
 
 # install requirements
-RUN pip3 install -r moonshiner-bot/requirements.txt
+RUN cd moonshiner-bot && pip3 install -r requirements.txt
 
 #remove .gitignore, readme, and requirements.txt
 RUN rm moonshiner-bot/.gitignore moonshiner-bot/README.md moonshiner-bot/requirements.txt
