@@ -39,7 +39,7 @@ netaddr==0.8.0
 netifaces==0.11.0
 oauthlib==3.2.0
 pop-transition==1.1.2
-protobuf==3.12.4
+protobuf==3.15.0
 pycairo==1.20.1
 pycodestyle==2.9.1
 pycups==2.0.1
