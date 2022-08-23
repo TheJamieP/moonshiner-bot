@@ -48,19 +48,19 @@ async def order(message, args, cmd, Embed, client):
         await message.channel.send(
             embed=Embed(
                 title="Error - No Role",
-                description="Please enter a valid role. (mining, chef, farmer, fisher, hunter, lumberjack, bootleggar, blacksmith, gunsmith, horsetrainer, ranching, pharmacist)",
+                description="Please enter a valid role. (mining, chef, farmer, fisher, hunter, lumberjack, bootlegger, blacksmith, gunsmith, horsetrainer, ranching, pharmacist)",
                 color=__EMBED_COLOUR__,
             )
         )
         return
     possible_roles = ["mining", "chef", "farmer", "fisher", "hunter", "lumberjack",
-                      "bootleggar", "blacksmith", "gunsmith", "horsetrainer", "ranching", "pharmacist"]
+                      "bootlegger", "blacksmith", "gunsmith", "horsetrainer", "ranching", "pharmacist", "carpenter"]
 
     if role not in possible_roles:
         await message.channel.send(
             embed=Embed(
                 title="Error - Invalid Role",
-                description="Please enter a valid role. (mining, chef, farmer, fisher, hunter, lumberjack, bootleggar, blacksmith, gunsmith, horsetrainer, ranching, pharmacist)",
+                description="Please enter a valid role. (mining, chef, farmer, fisher, hunter, lumberjack, bootlegger, blacksmith, gunsmith, horsetrainer, ranching, pharmacist)",
                 color=__EMBED_COLOUR__,
             )
         )
