@@ -1,11 +1,11 @@
 import pymongo
 from data.config import __EMBED_COLOUR__, __prefix__, __orders_channel__
-from data.sensitive import get_connection_string
+from os get environ
 from asyncio import TimeoutError, sleep
 
 
 database = pymongo.MongoClient(
-    get_connection_string()).get_database("orders")
+    environ.get("CONNECTION_STRING").get_database("orders")
 
 
 async def order(message, args, cmd, Embed, client):
