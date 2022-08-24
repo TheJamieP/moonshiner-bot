@@ -5,7 +5,7 @@ from asyncio import TimeoutError, sleep
 
 
 database = pymongo.MongoClient(
-    environ.get("CONNECTION_STRING").get_database("orders")
+    environ.get("CONNECTION_STRING").get_database("orders"))
 
 
 async def order(message, args, cmd, Embed, client):
