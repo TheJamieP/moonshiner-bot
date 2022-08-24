@@ -13,14 +13,6 @@ async def job(message, args, cmd, Embed, client):
     # order <add> <business> <item> <quantity> <customer>
     # order <remove> <business> <id>
     # order <get> <business>
-    if message.channel.id != __orders_channel__:
-        return await message.channel.send(
-            embed=Embed(
-                title="Error",
-                description="This command can only be used in the orders channel.",
-                colour=__EMBED_COLOUR__
-            )
-        )
     try:
         param = args[0]
 
@@ -67,6 +59,14 @@ async def job(message, args, cmd, Embed, client):
         return
     column = database.get_collection(role)
     if param == "add":
+        if message.channel.id != __orders_channel__:
+            return await message.channel.send(
+                embed=Embed(
+                    title="Error",
+                    description="This command can only be used in the orders channel.",
+                    colour=__EMBED_COLOUR__
+                )
+            )
         # begin taking items from a new message and adding them to the list of items
         items = {
             # "item": "quantity"
@@ -146,6 +146,14 @@ async def job(message, args, cmd, Embed, client):
         await message.channel.send(embed=embed)
 
     elif param == "remove":
+        if message.channel.id != __orders_channel__:
+            return await message.channel.send(
+                embed=Embed(
+                    title="Error",
+                    description="This command can only be used in the orders channel.",
+                    colour=__EMBED_COLOUR__
+                )
+            )
         try:
             id = args[2]
         except IndexError:
