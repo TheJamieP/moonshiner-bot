@@ -5,7 +5,7 @@ async def hp(message, Embed):
     embed = Embed(
         title="Help", description="For help with any of the commands use <cmd> -h", colour=__EMBED_COLOUR__)
     embed.add_field(
-        name="========~{Category}~========", value="======== Bootleggar ========", inline=False)
+        name="========~{Category}~========", value="======== Bootlegger ========", inline=False)
     embed.add_field(
         name="startmash", value="Starts a mash timer", inline=False)
     embed.add_field(
@@ -28,5 +28,9 @@ async def hp(message, Embed):
         name="========~{Category}~========", value="======== General ========", inline=False)
     embed.add_field(
         name="help", value="Shows this message", inline=False)
+    embed.add_field(
+        name="orders", value="Create/Remove/Get current orders (For businesses)", inline=False)
+    embed.add_field(
+        name="jobs", value="Create/Remove/Get current orders (For within gang)", inline=False)
     await message.channel.send(embed=embed)
     return

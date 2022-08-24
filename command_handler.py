@@ -1,8 +1,7 @@
-from commands import checktimers, timer, getrecipe, getcost, seedcost, help, howtogrow, orders
+from commands import checktimers, timer, getrecipe, getcost, seedcost, help, howtogrow, orders, jobs
 
 
 async def command_handler(args, cmd, message, prefix, discord, timers, timer_index, client):
-
     # bootleggar shit
     if cmd == prefix + "startmash":
         await timer.tr(message, args, cmd, 5700, "Mash", timers, timer_index)
@@ -37,3 +36,6 @@ async def command_handler(args, cmd, message, prefix, discord, timers, timer_ind
 
     elif cmd == prefix + "orders":
         await orders.order(message, args, cmd, discord.Embed, client)
+
+    elif cmd == prefix + "jobs":
+        await jobs.job(message, args, cmd, discord.Embed, client)
