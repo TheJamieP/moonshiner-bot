@@ -1,6 +1,6 @@
 import pymongo
 from data.config import __EMBED_COLOUR__, __prefix__, __orders_channel__
-from os get environ
+from os import environ
 from asyncio import TimeoutError, sleep
 
 
