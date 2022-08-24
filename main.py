@@ -1,12 +1,17 @@
 import discord
 from command_handler import command_handler
 from data.config import __prefix__ as prefix, __BOT_MODE__
-from data.sensitive import get_token
+from os import environ
 timers = []
 timer_index = 0
 
 # stop pushing the token to the repo
 # load the data from the file
+if __BOT_MODE__ == "dev":
+    # load environment variables
+    token = environ.get('DEV_TOKEN')
+else:
+    token = environ.get('LIVE_TOKEN')
 
 
 class MyClient(discord.Client):
@@ -32,4 +37,4 @@ class MyClient(discord.Client):
 
 
 client = MyClient()
-client.run(get_token())
+client.run(token)
