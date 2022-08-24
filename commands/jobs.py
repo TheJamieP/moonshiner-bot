@@ -76,13 +76,13 @@ async def job(message, args, cmd, Embed, client):
             try:
                 await message.channel.send("Please enter the name of the item you would like to add. (type 'done' when finished): ")
                 await sleep(0.10)
-                item = await client.wait_for("message", timeout=60.0)
+                item = await client.wait_for("message", timeout=600.0)
                 item_data = item.content
                 if item_data == "done":
                     loop = False
                     break
                 await message.channel.send("Please enter the quantity of the item you would like to add:")
-                quantity = await client.wait_for("message", timeout=60.0)
+                quantity = await client.wait_for("message", timeout=600.0)
                 items[item_data] = quantity.content
 
             except TimeoutError:
@@ -90,11 +90,11 @@ async def job(message, args, cmd, Embed, client):
                 break
 
         await message.channel.send("Please enter the name of the customer:")
-        customer = await client.wait_for("message", timeout=60.0)
+        customer = await client.wait_for("message", timeout=600.0)
 
         customer = customer.content.lower()
         await message.channel.send("Please enter the type of the job. (Requesting/Selling?):")
-        type = await client.wait_for("message", timeout=60.0)
+        type = await client.wait_for("message", timeout=600.0)
         await message.channel.purge(limit=75)
         type = type.content.lower()
         data = [x for x in column.find({})]
