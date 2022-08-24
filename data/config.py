@@ -10,8 +10,8 @@ oooooo     oooo                     o8o             .o8       oooo
 """
 __EMBED_COLOUR__ = 0xFFFFFF
 __prefix__ = "."
-__BOT_MODE__ = "dev"
-__orders_channel__ = 1009922344296386672
+__BOT_MODE__ = "main"
+__orders_channel__ = 1010654580289318992
 """
 oooooooooo.    o8o                .
 `888'   `Y8b   `"'              .o8
