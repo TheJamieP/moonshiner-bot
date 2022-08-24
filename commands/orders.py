@@ -74,7 +74,7 @@ async def order(message, args, cmd, Embed, client):
         loop = True
         while loop:
             try:
-                await message.channel.send("Please enter the name of the item you would like to add. (type 'done' when finished): ")
+                await message.channel.send("Please enter the name of the item you would like to add. (type done when finished): ")
                 await sleep(0.10)
                 item = await client.wait_for("message", timeout=600.0)
                 item_data = item.content
