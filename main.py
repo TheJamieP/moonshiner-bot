@@ -26,7 +26,7 @@ class MyClient(discord.Client):
     async def on_message(self, message):
         if message.author.bot:
             return
-        args = message.content.split()
+        args = message.content.lower().split()
         try:
             cmd = args[0]
             args.pop(0)

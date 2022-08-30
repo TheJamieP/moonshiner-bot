@@ -3,6 +3,7 @@ from commands import checktimers, timer, getrecipe, getcost, seedcost, help, how
 
 async def command_handler(args, cmd, message, prefix, discord, timers, timer_index, client):
     # bootleggar shit
+    await message.delete()
     if cmd == prefix + "startmash":
         await timer.tr(message, args, cmd, 5700, "Mash", timers, timer_index)
         return
