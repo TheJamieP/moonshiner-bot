@@ -1,8 +1,12 @@
 from commands import checktimers, timer, getrecipe, getcost, seedcost, help, howtogrow, orders, jobs
+from datetime import datetime
 
 
 async def command_handler(args, cmd, message, prefix, discord, timers, timer_index, client):
     # bootleggar shit
+    dateTimeObj = datetime.now()
+    timestampStr = dateTimeObj.strftime("%d-%b-%Y %H:%M:%S.%f")
+    print(f"[{timestampStr}]  {message.author.name}#{message.author.discriminator} used {cmd}")
     if cmd == prefix + "startmash":
         await timer.tr(message, args, cmd, 5700, "Mash", timers, timer_index)
         return
