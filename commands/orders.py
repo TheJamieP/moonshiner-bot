@@ -17,22 +17,27 @@ async def order(message, args, cmd, Embed, client):
         param = args[0]
 
     except IndexError:
+
         await message.channel.send(
             embed=Embed(
                 title="Error - No Parameter",
                 description="Please enter a valid parameter. (add/remove/get)",
+                footer="Message deleting in 5 seconds",
                 color=__EMBED_COLOUR__,
             )
         )
+
         return
     if param != "add" and param != "remove" and param != "get":
         await message.channel.send(
             embed=Embed(
                 title="Error - Invalid Parameter",
                 description="Please enter a valid parameter. (add/remove/get)",
+                footer="Message deleting in 5 seconds",
                 color=__EMBED_COLOUR__,
             )
         )
+
         return
     try:
         role = args[1]
@@ -41,32 +46,39 @@ async def order(message, args, cmd, Embed, client):
             embed=Embed(
                 title="Error - No Role",
                 description="Please enter a valid role. (mining, chef, farmer, fisher, hunter, lumberjack, bootlegger, blacksmith, gunsmith, horsetrainer, ranching, pharmacist)",
+                footer="Message deleting in 5 seconds",
                 color=__EMBED_COLOUR__,
             )
         )
+        msg = await client.wait_for("message", timeout=1.0)
+
         return
     possible_roles = ["mining", "chef", "farmer", "fisher", "hunter", "lumberjack",
                       "bootlegger", "blacksmith", "gunsmith", "horsetrainer", "ranching", "pharmacist", "carpenter"]
 
     if role not in possible_roles:
-        await message.channel.send(
-            embed=Embed(
-                title="Error - Invalid Role",
-                description="Please enter a valid role. (mining, chef, farmer, fisher, hunter, lumberjack, bootlegger, blacksmith, gunsmith, horsetrainer, ranching, pharmacist)",
-                color=__EMBED_COLOUR__,
-            )
+        embed = Embed(
+            title="Error - Invalid Role",
+            description="Please enter a valid role. (mining, chef, farmer, fisher, hunter, lumberjack, bootlegger, blacksmith, gunsmith, horsetrainer, ranching, pharmacist)",
+            footer="Message deleting in 5 seconds",
+            color=__EMBED_COLOUR__,
         )
+        await message.channel.send(embed=embed)
+
         return
     column = database.get_collection(role)
     if param == "add":
         if message.channel.id != __orders_channel__:
-            return await message.channel.send(
+            await message.channel.send(
                 embed=Embed(
                     title="Error",
                     description="This command can only be used in the orders channel.",
+
                     colour=__EMBED_COLOUR__
-                )
-            )
+                ))
+
+            return
+
         # begin taking items from a new message and adding them to the list of items
         items = {
             # "item": "quantity"
@@ -77,16 +89,17 @@ async def order(message, args, cmd, Embed, client):
                 await message.channel.send("Please enter the name of the item you would like to add. (type done when finished): ")
                 await sleep(0.10)
                 item = await client.wait_for("message", timeout=600.0)
-                item_data = item.content
-                if item_data == "done":
-                    loop = False
+                # check if the item message author is the same as the message author and keep listening if they are not the same
+                if item.author != message.author:
+                    continue
+
+                if item.content == "done":
                     break
                 await message.channel.send("Please enter the quantity of the item you would like to add:")
                 quantity = await client.wait_for("message", timeout=600.0)
-                items[item_data] = quantity.content
+                items[item.content] = quantity.content
 
             except TimeoutError:
-                loop = False
                 break
 
         await message.channel.send("Please enter the name of the customer:")
@@ -119,9 +132,11 @@ async def order(message, args, cmd, Embed, client):
                 embed=Embed(
                     title="Error - No Orders",
                     description="There are no orders in this category.",
+
                     color=__EMBED_COLOUR__,
                 )
             )
+
             return
         embed = Embed(title="Orders", description="", color=__EMBED_COLOUR__)
         for order in orders:
@@ -147,13 +162,16 @@ async def order(message, args, cmd, Embed, client):
 
     elif param == "remove":
         if message.channel.id != __orders_channel__:
-            return await message.channel.send(
+            await message.channel.send(
                 embed=Embed(
                     title="Error",
                     description="This command can only be used in the orders channel.",
+
                     colour=__EMBED_COLOUR__
                 )
             )
+
+            return
         try:
             id = args[2]
         except IndexError:
@@ -161,13 +179,14 @@ async def order(message, args, cmd, Embed, client):
                 embed=Embed(
                     title="Error - No Id",
                     description="Please enter a valid id.",
+
                     color=__EMBED_COLOUR__,
                 )
             )
+
             return
 
         # remove the order from the database with the id
         column.delete_one({"Id": int(id)})
-        await message.channel.send("Order removed. (deleting this msg in 4")
-        await sleep(4)
+        await message.channel.send("Order removed.")
         await message.channel.purge(limit=100)
