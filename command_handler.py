@@ -12,11 +12,11 @@ async def command_handler(args, cmd, message, prefix, discord, timers, timer_ind
         await message.delete()
 
     if cmd == prefix + "startmash":
-        await timer.tr(message, args, cmd, 5, "Mash", timers, timer_index)
+        await timer.tr(message, args, cmd, 5700, "Mash", timers, timer_index)
         return
 
     elif cmd == prefix + "startalcohol":
-        await timer.tr(message, args, cmd, 3, "Alcohol", timers, timer_index)
+        await timer.tr(message, args, cmd, 3000, "Alcohol", timers, timer_index)
         return
 
     elif cmd == prefix + "startshine":
