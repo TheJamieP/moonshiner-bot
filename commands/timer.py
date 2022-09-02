@@ -24,7 +24,7 @@ async def tr(message, args, cmd, seconds, type, timers, timer_index):
 
     timers.insert(timer_index, [args[0], int(
         time()) + seconds, message.author.name, type])
-    await message.reply(f"The {type} in still {args[0]} will be ready in {seconds} seconds")
+    await message.channel.send(f"The {type} in still {args[0]} will be ready in {seconds} seconds")
     await sleep(seconds)
 
     for timer in timers:
