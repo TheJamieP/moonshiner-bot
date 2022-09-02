@@ -9,7 +9,7 @@ oooooo     oooo                     o8o             .o8       oooo
 
 """
 __EMBED_COLOUR__ = 0xFFFFFF
-__prefix__ = "t."
+__prefix__ = "."
 __BOT_MODE__ = "main"
 if __BOT_MODE__ == "dev":
     __orders_channel__ = 1009922344296386672
