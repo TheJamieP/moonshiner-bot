@@ -8,8 +8,8 @@ async def command_handler(args, cmd, message, prefix, discord, timers, timer_ind
     dateTimeObj = datetime.now()
     timestampStr = dateTimeObj.strftime("%d-%b-%Y %H:%M:%S.%f")
     print(f"[{timestampStr}]  {message.author.name}#{message.author.discriminator} used {cmd}")
-
-    await message.delete()
+    if cmd[0] == prefix:
+        await message.delete()
 
     if cmd == prefix + "startmash":
         await timer.tr(message, args, cmd, 5700, "Mash", timers, timer_index)
