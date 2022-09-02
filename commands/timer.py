@@ -1,6 +1,6 @@
 from asyncio import sleep
 from time import time
-from discord.utils import get
+from discord.utils import find
 
 
 async def tr(message, args, cmd, seconds, type, timers, timer_index):
@@ -19,9 +19,8 @@ async def tr(message, args, cmd, seconds, type, timers, timer_index):
         return
 
     # ping the user after the time has passed
-
-    role = get(message.guild.roles, name="bootleggars")
-
+    role = find(lambda r: r.name == "Bootlegger", message.guild.roles)
+    print(role)
     timers.insert(timer_index, [args[0], int(
         time()) + seconds, message.author.name, type])
     await message.channel.send(f"The {type} in still {args[0].upper()} will be ready in {seconds} seconds")
