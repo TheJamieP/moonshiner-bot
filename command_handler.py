@@ -16,7 +16,7 @@ async def command_handler(args, cmd, message, prefix, discord, timers, timer_ind
         return
 
     elif cmd == prefix + "startalcohol":
-        await timer.tr(message, args, cmd, 3000, "Alcohol", timers, timer_index)
+        await timer.tr(message, args, cmd, 3, "Alcohol", timers, timer_index)
         return
 
     elif cmd == prefix + "startshine":
