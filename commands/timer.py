@@ -24,7 +24,7 @@ async def tr(message, args, cmd, seconds, type, timers, timer_index):
 
     timers.insert(timer_index, [args[0], int(
         time()) + seconds, message.author.name, type])
-    await message.channel.send(f"The {type} in still {args[0]} will be ready in {seconds} seconds")
+    await message.channel.send(f"The {type} in still {args[0].upper()} will be ready in {seconds} seconds")
     await sleep(seconds)
 
     for timer in timers:
@@ -33,4 +33,4 @@ async def tr(message, args, cmd, seconds, type, timers, timer_index):
             timers.remove(timer)
             break
 
-    await message.channel.send(f"{role.mention} still {args[0]} is ready for another batch \n https://tenor.com/view/deliverance-movie-dance-celebrate-fun-gif-5673810")
+    await message.channel.send(f"{role.mention} still {args[0].upper()} is ready for another batch!")
