@@ -19,8 +19,9 @@ async def tr(message, args, cmd, seconds, type, timers, timer_index):
         return
 
     # ping the user after the time has passed
-    role = find(lambda r: r.name == "Bootlegger", message.guild.roles)
-    print(role)
+    user = find(lambda m: m.mention == message.author.mention,
+                message.channel.members)
+
     timers.insert(timer_index, [args[0], int(
         time()) + seconds, message.author.name, type])
     await message.channel.send(f"The {type} in still {args[0].upper()} will be ready in {seconds} seconds")
@@ -32,4 +33,4 @@ async def tr(message, args, cmd, seconds, type, timers, timer_index):
             timers.remove(timer)
             break
 
-    await message.channel.send(f"{role.mention} still {args[0].upper()} is ready for another batch!")
+    await message.channel.send(f"{user.mention} still {args[0].upper()} is ready for another batch!")
